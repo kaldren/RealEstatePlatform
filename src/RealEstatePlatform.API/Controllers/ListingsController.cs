@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using RealEstatePlatform.Modules.Listings.Features.GetSingleListingById;
+using RealEstatePlatform.Shared.Mediator.Contracts;
 
 namespace RealEstatePlatform.API.Controllers;
 
@@ -8,16 +10,24 @@ namespace RealEstatePlatform.API.Controllers;
 [AllowAnonymous] // TODO: Remove this after testing
 public class ListingsController : ControllerBase
 {
-    [HttpGet]
-    public IActionResult GetListings()
+    private readonly IMediator _mediator;
+
+    public ListingsController(IMediator mediator)
     {
-        return Ok(new[] { "Listing1", "Listing2", "Listing3" });
+        _mediator = mediator;
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> GetListings()
+    {
+        throw new NotImplementedException();
     }
 
     [HttpGet]
     [Route("{id}")]
-    public IActionResult GetListingById(int id)
+    public async Task<IActionResult> GetListingById(int id)
     {
-        return Ok($"Listing {id}");
+        var result = await _mediator.Send(new GetSingleListingByIdQuery(id));
+        return Ok(result);
     }
 }

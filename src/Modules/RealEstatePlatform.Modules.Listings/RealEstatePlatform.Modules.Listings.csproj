@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Shared\RealEstatePlatform.Shared.Mediator\RealEstatePlatform.Shared.Mediator.csproj" />
+  </ItemGroup>
+
 </Project>

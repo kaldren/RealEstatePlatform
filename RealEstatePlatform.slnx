@@ -5,4 +5,7 @@
   <Folder Name="/src/Modules/">
     <Project Path="src/Modules/RealEstatePlatform.Modules.Listings/RealEstatePlatform.Modules.Listings.csproj" />
   </Folder>
+  <Folder Name="/src/Shared/">
+    <Project Path="src/Shared/RealEstatePlatform.Shared.Mediator/RealEstatePlatform.Shared.Mediator.csproj" />
+  </Folder>
 </Solution>
