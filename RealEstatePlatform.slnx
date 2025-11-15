@@ -2,4 +2,7 @@
   <Folder Name="/src/">
     <Project Path="src/RealEstatePlatform.API/RealEstatePlatform.API.csproj" />
   </Folder>
+  <Folder Name="/src/Modules/">
+    <Project Path="src/Modules/RealEstatePlatform.Modules.Listings/RealEstatePlatform.Modules.Listings.csproj" />
+  </Folder>
 </Solution>
