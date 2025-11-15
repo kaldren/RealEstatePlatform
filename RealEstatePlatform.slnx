@@ -1,0 +1,5 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/RealEstatePlatform.API/RealEstatePlatform.API.csproj" />
+  </Folder>
+</Solution>
