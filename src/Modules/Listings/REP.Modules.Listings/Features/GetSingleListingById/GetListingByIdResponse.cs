@@ -1,6 +1,6 @@
 ﻿namespace REP.Modules.Listings.Application.Features.GetSingleListingById;
 
-public record ListingDto(
+public record GetListingByIdResponse(
     Guid Id,
     string Title,
     string Description,
