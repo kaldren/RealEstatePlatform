@@ -1,14 +1,17 @@
-﻿using REP.Shared.Mediator.Contracts;
+﻿using Microsoft.Extensions.DependencyInjection;
+using REP.Shared.Mediator.Contracts;
 
 namespace REP.Shared.Mediator;
 
 public class Mediator : IMediator
 {
     private readonly Dictionary<Type, Type> _handlers = new();
+    private readonly IServiceProvider _provider;
 
-    public Mediator()
+    public Mediator(IServiceProvider provider)
     {
         RegisterHandlers();
+        _provider = provider;
     }
 
     private void RegisterHandlers()
@@ -44,7 +47,7 @@ public class Mediator : IMediator
             throw new Exception($"Handler for {requestType.Name} not found.");
 
         // Create handler instance (no DI)
-        var handler = Activator.CreateInstance(handlerType);
+        var handler = ActivatorUtilities.CreateInstance(_provider, handlerType);
 
         // Find Handle method
         var method = handlerType.GetMethod("Handle");
