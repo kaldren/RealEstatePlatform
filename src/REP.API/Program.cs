@@ -4,6 +4,7 @@ using REP.Modules.Listings.Infrastructure.Extensions;
 using REP.Shared.Mediator.Extensions;
 using REP.Modules.Listings.API;
 using REP.Modules.Listings.Infrastructure.Persistence;
+using REP.Modules.Accounts.API;
 
 bool isDevelopment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development";
 bool insertDummyData = true;
@@ -43,7 +44,10 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 
 app.UseAuthorization();
+
 app.MapListingsEndpoints();
+app.MapAccountsEndpoints();
+
 app.MapControllers();
 
 app.Run();
