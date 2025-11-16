@@ -1,7 +1,7 @@
-﻿namespace REP.Modules.Listings.Features.GetSingleListingById;
+﻿namespace REP.Modules.Listings.Application.Features.GetSingleListingById;
 
 public record ListingDto(
-    int Id,
+    Guid Id,
     string Title,
     string Description,
     decimal Price,

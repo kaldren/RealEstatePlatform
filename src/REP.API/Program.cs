@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Identity.Web;
 using REP.Modules.Listings.Infrastructure.Extensions;
 using REP.Shared.Mediator.Extensions;
+using REP.Modules.Listings.API;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,7 +31,7 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 
 app.UseAuthorization();
-
+app.MapListingsEndpoints();
 app.MapControllers();
 
 app.Run();

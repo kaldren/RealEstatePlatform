@@ -1,4 +1,4 @@
-﻿namespace REP.Modules.Listings.Contracts;
+﻿namespace REP.Modules.Listings.Application.Contracts;
 internal interface IListingsRepository
 {
 }

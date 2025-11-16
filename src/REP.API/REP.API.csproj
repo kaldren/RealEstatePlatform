@@ -70,8 +70,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Modules\Listings\REP.Modules.Listings.API\REP.Modules.Listings.API.csproj" />
     <ProjectReference Include="..\Modules\Listings\REP.Modules.Listings.Infrastructure\REP.Modules.Listings.Infrastructure.csproj" />
-    <ProjectReference Include="..\Modules\Listings\REP.Modules.Listings\REP.Modules.Listings.csproj" />
+    <ProjectReference Include="..\Modules\Listings\REP.Modules.Listings\REP.Modules.Listings.Application.csproj" />
     <ProjectReference Include="..\Shared\REP.Shared.Mediator\REP.Shared.Mediator.csproj" />
   </ItemGroup>
 

@@ -4,9 +4,10 @@
   </Folder>
   <Folder Name="/src/Modules/" />
   <Folder Name="/src/Modules/Listings/">
+    <Project Path="src/Modules/Listings/REP.Modules.Listings.API/REP.Modules.Listings.API.csproj" Id="89704db1-11cf-4ee0-bbbe-a7a31116163f" />
     <Project Path="src/Modules/Listings/REP.Modules.Listings.Domain/REP.Modules.Listings.Domain.csproj" Id="e7ccb530-096f-4681-961d-bc679deb807f" />
     <Project Path="src/Modules/Listings/REP.Modules.Listings.Infrastructure/REP.Modules.Listings.Infrastructure.csproj" Id="7cd40b54-4ea7-4c85-a1e2-6d4819866dc0" />
-    <Project Path="src/Modules/Listings/REP.Modules.Listings/REP.Modules.Listings.csproj" />
+    <Project Path="src/Modules/Listings/REP.Modules.Listings/REP.Modules.Listings.Application.csproj" />
   </Folder>
   <Folder Name="/src/Shared/">
     <Project Path="src/Shared/REP.Shared.Mediator/REP.Shared.Mediator.csproj" />
