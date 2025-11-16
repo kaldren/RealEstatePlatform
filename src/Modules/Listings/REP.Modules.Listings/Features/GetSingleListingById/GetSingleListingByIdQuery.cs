@@ -1,13 +1,25 @@
-﻿using REP.Shared.Mediator.Contracts;
+﻿using REP.Modules.Listings.Application.Contracts;
+using REP.Shared.Mediator.Contracts;
 
 namespace REP.Modules.Listings.Application.Features.GetSingleListingById;
 
-public record GetSingleListingByIdQuery(Guid Id) : IRequest<ListingDto>;
+public record GetSingleListingByIdQuery(Guid Id) : IRequest<ListingDto?>;
 
-public record GetSingleListingByIdQueryHandler : IRequestHandler<GetSingleListingByIdQuery, ListingDto>
+public record GetSingleListingByIdQueryHandler : IRequestHandler<GetSingleListingByIdQuery, ListingDto?>
 {
-    public async Task<ListingDto> Handle(GetSingleListingByIdQuery request, CancellationToken cancellationToken)
+    private readonly IListingsRepository _repository;
+
+    public GetSingleListingByIdQueryHandler(IListingsRepository repository)
     {
-        return await Task.FromResult(new ListingDto(Guid.NewGuid(), "Sample Listing", "This is a sample listing description.", 250000m, "123 Main St, Anytown, USA"));
+        _repository = repository;
+    }
+
+    public async Task<ListingDto?> Handle(GetSingleListingByIdQuery request, CancellationToken cancellationToken)
+    {
+        var listing = await _repository.GetByIdAsync(request.Id, cancellationToken);
+
+        return listing is not null
+            ? new ListingDto(listing.Id, listing.Title, listing.Description, listing.Price, listing.Address)
+            : null;
     }
 }

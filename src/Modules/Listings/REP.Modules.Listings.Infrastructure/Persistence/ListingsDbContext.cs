@@ -3,7 +3,7 @@ using REP.Modules.Listings.Domain.Entities;
 
 namespace REP.Modules.Listings.Infrastructure.Persistence;
 
-internal class ListingsDbContext : DbContext
+public class ListingsDbContext : DbContext
 {
     public ListingsDbContext(DbContextOptions<ListingsDbContext> options)
         : base(options)

@@ -66,6 +66,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\REP.Modules.Listings.Domain\REP.Modules.Listings.Domain.csproj" />
+    <ProjectReference Include="..\REP.Modules.Listings\REP.Modules.Listings.Application.csproj" />
   </ItemGroup>
 
 </Project>

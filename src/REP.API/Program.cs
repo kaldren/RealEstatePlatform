@@ -3,6 +3,10 @@ using Microsoft.Identity.Web;
 using REP.Modules.Listings.Infrastructure.Extensions;
 using REP.Shared.Mediator.Extensions;
 using REP.Modules.Listings.API;
+using REP.Modules.Listings.Infrastructure.Persistence;
+
+bool isDevelopment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development";
+bool insertDummyData = true;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +23,14 @@ builder.Services.AddMediator();
 builder.Services.AddListingsModule(builder.Configuration);
 
 var app = builder.Build();
+
+if (isDevelopment && insertDummyData)
+{
+    using (var scope = app.Services.CreateScope())
+    {
+        await SetupDatabase.InitializeAsync(scope.ServiceProvider.GetRequiredService<ListingsDbContext>());
+    }
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
