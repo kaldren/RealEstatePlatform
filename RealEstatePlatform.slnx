@@ -3,6 +3,12 @@
     <Project Path="src/REP.API/REP.API.csproj" />
   </Folder>
   <Folder Name="/src/Modules/" />
+  <Folder Name="/src/Modules/Accounts/">
+    <Project Path="src/Modules/Accounts/REP.Modules.Accounts.Application/REP.Modules.Accounts.Application.csproj" Id="9839591e-1481-4669-bf04-ecb67609db3a" />
+    <Project Path="src/Modules/Accounts/REP.Modules.Accounts.Domain/REP.Modules.Accounts.Domain.csproj" Id="1ab9efcf-859a-40ca-827e-f226c68fda90" />
+    <Project Path="src/Modules/Accounts/REP.Modules.Accounts.Infrastructure/REP.Modules.Accounts.Infrastructure.csproj" Id="f1cc8951-d11b-4f18-9e3e-df9db570a7f8" />
+    <Project Path="src/Modules/REP.Modules.Accounts.API/REP.Modules.Accounts.API.csproj" Id="fb574949-e86f-40d0-8784-81a13c0a71b1" />
+  </Folder>
   <Folder Name="/src/Modules/Listings/">
     <Project Path="src/Modules/Listings/REP.Modules.Listings.API/REP.Modules.Listings.API.csproj" Id="89704db1-11cf-4ee0-bbbe-a7a31116163f" />
     <Project Path="src/Modules/Listings/REP.Modules.Listings.Domain/REP.Modules.Listings.Domain.csproj" Id="e7ccb530-096f-4681-961d-bc679deb807f" />
