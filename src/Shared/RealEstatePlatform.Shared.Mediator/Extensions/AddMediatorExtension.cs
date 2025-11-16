@@ -7,7 +7,7 @@ public static class AddMediatorExtension
 {
     public static IServiceCollection AddMediator(this IServiceCollection services)
     {
-        services.AddSingleton<IMediator, Mediator>();
+        services.AddTransient<IMediator, Mediator>();
         return services;
     }
 }
