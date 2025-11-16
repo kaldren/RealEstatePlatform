@@ -65,7 +65,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Persistence\" />
+	  <ProjectReference Include="..\REP.Modules.Accounts.Application\REP.Modules.Accounts.Application.csproj" />
+	  <ProjectReference Include="..\REP.Modules.Accounts.Domain\REP.Modules.Accounts.Domain.csproj" />
 	</ItemGroup>
 
 </Project>

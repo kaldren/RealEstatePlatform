@@ -71,6 +71,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Modules\Accounts\REP.Modules.Accounts.API\REP.Modules.Accounts.API.csproj" />
+    <ProjectReference Include="..\Modules\Accounts\REP.Modules.Accounts.Infrastructure\REP.Modules.Accounts.Infrastructure.csproj" />
     <ProjectReference Include="..\Modules\Listings\REP.Modules.Listings.API\REP.Modules.Listings.API.csproj" />
     <ProjectReference Include="..\Modules\Listings\REP.Modules.Listings.Infrastructure\REP.Modules.Listings.Infrastructure.csproj" />
     <ProjectReference Include="..\Modules\Listings\REP.Modules.Listings\REP.Modules.Listings.Application.csproj" />

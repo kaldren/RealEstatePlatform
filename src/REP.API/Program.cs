@@ -5,6 +5,7 @@ using REP.Shared.Mediator.Extensions;
 using REP.Modules.Listings.API;
 using REP.Modules.Listings.Infrastructure.Persistence;
 using REP.Modules.Accounts.API;
+using REP.Modules.Accounts.Infrastructure.Extensions;
 
 bool isDevelopment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development";
 bool insertDummyData = true;
@@ -21,7 +22,8 @@ builder.Services.AddOpenApi();
 
 builder.Services.AddMediator();
 
-builder.Services.AddListingsModule(builder.Configuration);
+builder.Services.AddListingsInfrastructure(builder.Configuration);
+builder.Services.AddAccountsInfrastructure(builder.Configuration);
 
 var app = builder.Build();
 

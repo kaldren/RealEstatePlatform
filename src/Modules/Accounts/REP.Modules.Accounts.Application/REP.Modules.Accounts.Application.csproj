@@ -10,4 +10,8 @@
     <Folder Include="Features\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\REP.Modules.Accounts.Domain\REP.Modules.Accounts.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -7,9 +7,9 @@ using REP.Modules.Listings.Infrastructure.Persistence.Repositories;
 
 namespace REP.Modules.Listings.Infrastructure.Extensions;
 
-public static class ListingsModuleExtensions
+public static class InfrastructureExtensions
 {
-    public static IServiceCollection AddListingsModule(this IServiceCollection services, IConfiguration config)
+    public static IServiceCollection AddListingsInfrastructure(this IServiceCollection services, IConfiguration config)
     {
         // Example of using the configuration
         var connectionString = config["Modules:Listings:Database:ConnectionString"];
