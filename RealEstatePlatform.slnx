@@ -1,11 +1,14 @@
 <Solution>
   <Folder Name="/src/">
-    <Project Path="src/RealEstatePlatform.API/RealEstatePlatform.API.csproj" />
+    <Project Path="src/REP.API/REP.API.csproj" />
   </Folder>
-  <Folder Name="/src/Modules/">
-    <Project Path="src/Modules/RealEstatePlatform.Modules.Listings/RealEstatePlatform.Modules.Listings.csproj" />
+  <Folder Name="/src/Modules/" />
+  <Folder Name="/src/Modules/Listings/">
+    <Project Path="src/Modules/Listings/REP.Modules.Listings.Domain/REP.Modules.Listings.Domain.csproj" Id="e7ccb530-096f-4681-961d-bc679deb807f" />
+    <Project Path="src/Modules/Listings/REP.Modules.Listings.Infrastructure/REP.Modules.Listings.Infrastructure.csproj" Id="7cd40b54-4ea7-4c85-a1e2-6d4819866dc0" />
+    <Project Path="src/Modules/Listings/REP.Modules.Listings/REP.Modules.Listings.csproj" />
   </Folder>
   <Folder Name="/src/Shared/">
-    <Project Path="src/Shared/RealEstatePlatform.Shared.Mediator/RealEstatePlatform.Shared.Mediator.csproj" />
+    <Project Path="src/Shared/REP.Shared.Mediator/REP.Shared.Mediator.csproj" />
   </Folder>
 </Solution>

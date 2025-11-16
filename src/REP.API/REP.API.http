@@ -1,0 +1,6 @@
+@REP.API_HostAddress = http://localhost:5103
+
+GET {{REP.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
