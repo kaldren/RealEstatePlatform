@@ -10,4 +10,8 @@
 		<FrameworkReference Include="Microsoft.AspNetCore.App" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <ProjectReference Include="..\REP.Modules.Accounts.Application\REP.Modules.Accounts.Application.csproj" />
+	</ItemGroup>
+
 </Project>

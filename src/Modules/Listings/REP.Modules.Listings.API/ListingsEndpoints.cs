@@ -16,7 +16,7 @@ public static class ListingsEndpoints
         group.MapGet("/{id:guid}", static async (Guid id, IMediator mediator) =>
         {
             // Inject Mediator
-            var result = await mediator.Send(new GetSingleListingByIdQuery(id));
+            var result = await mediator.SendAsync(new GetSingleListingByIdQuery(id));
             return result is null ? Results.NotFound() : Results.Ok(result);
         });
 

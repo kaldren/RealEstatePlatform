@@ -1,17 +1,20 @@
 ﻿using REP.Modules.Accounts.Application.Contracts;
+using REP.Modules.Accounts.Application.Features.UpdateAccount;
 using REP.Modules.Accounts.Domain.Entities;
 
 namespace REP.Modules.Accounts.Infrastructure.Persistence.Repositories;
 
 public class AccountsRepository : IAccountsRepository
 {
-    public AccountsRepository()
+    private readonly IAccountsRepository _accountsRepository;
+
+    public AccountsRepository(IAccountsRepository accountsRepository)
     {
-        
+        _accountsRepository = accountsRepository;
     }
 
-    public async Task<Account> UpdateUserProfileAsync(Guid userId, string fullName, string phoneNumber, CancellationToken cancellationToken)
+    public Task<Account> UpdateAccountAsync(UpdateAccountCommand request, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        return _accountsRepository.UpdateAccountAsync(request, cancellationToken);
     }
 }

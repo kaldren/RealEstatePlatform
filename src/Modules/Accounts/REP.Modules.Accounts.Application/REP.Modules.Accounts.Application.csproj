@@ -7,10 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Features\" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <ProjectReference Include="..\..\..\Shared\REP.Shared.Mediator\REP.Shared.Mediator.csproj" />
     <ProjectReference Include="..\REP.Modules.Accounts.Domain\REP.Modules.Accounts.Domain.csproj" />
   </ItemGroup>
 
