@@ -3,7 +3,7 @@ using REP.Modules.Listings.Domain.Entities;
 
 namespace REP.Modules.Listings.Infrastructure.Persistence;
 
-public static class SetupDatabase
+public static class ListingsInitDatabase
 {
     // Insert dummy data
     public static async Task InitializeAsync(ListingsDbContext dbContext)

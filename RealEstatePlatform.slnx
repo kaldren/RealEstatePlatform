@@ -4,6 +4,7 @@
   </Folder>
   <Folder Name="/src/">
     <Project Path="src/REP.API/REP.API.csproj" />
+    <Project Path="src/REP.Web/REP.Web.csproj" Id="4c2cb3bb-ddaf-4323-8475-233f7605c3f6" />
   </Folder>
   <Folder Name="/src/Modules/" />
   <Folder Name="/src/Modules/Accounts/">

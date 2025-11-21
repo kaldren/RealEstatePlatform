@@ -6,6 +6,7 @@ using REP.Modules.Listings.API;
 using REP.Modules.Listings.Infrastructure.Persistence;
 using REP.Modules.Accounts.API;
 using REP.Modules.Accounts.Infrastructure.Extensions;
+using REP.Modules.Accounts.Infrastructure.Persistence;
 
 bool isDevelopment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development";
 bool insertDummyData = true;
@@ -31,7 +32,8 @@ if (isDevelopment && insertDummyData)
 {
     using (var scope = app.Services.CreateScope())
     {
-        await SetupDatabase.InitializeAsync(scope.ServiceProvider.GetRequiredService<ListingsDbContext>());
+        await ListingsInitDatabase.InitializeAsync(scope.ServiceProvider.GetRequiredService<ListingsDbContext>());
+        await AccountsInitDatabase.InitializeAsync(scope.ServiceProvider.GetRequiredService<AccountsDbContext>());
     }
 }
 

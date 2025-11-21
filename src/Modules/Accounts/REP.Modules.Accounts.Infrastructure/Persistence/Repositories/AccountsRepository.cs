@@ -6,15 +6,22 @@ namespace REP.Modules.Accounts.Infrastructure.Persistence.Repositories;
 
 public class AccountsRepository : IAccountsRepository
 {
-    private readonly IAccountsRepository _accountsRepository;
+    private readonly AccountsDbContext _accountsDbContext;
 
-    public AccountsRepository(IAccountsRepository accountsRepository)
+    public AccountsRepository(AccountsDbContext accountsDbContext)
     {
-        _accountsRepository = accountsRepository;
+        _accountsDbContext = accountsDbContext;
     }
 
-    public Task<Account> UpdateAccountAsync(UpdateAccountCommand request, CancellationToken cancellationToken)
+    public async Task<Account?> UpdateAccountAsync(UpdateAccountCommand request, CancellationToken cancellationToken)
     {
-        return _accountsRepository.UpdateAccountAsync(request, cancellationToken);
+        var account = await _accountsDbContext.Accounts.FindAsync(new object[] { request.Id }, cancellationToken);
+        if (account == null) return null;
+
+        account.Name = request.Name;
+        account.PhoneNumber = request.PhoneNumber;
+
+        await _accountsDbContext.SaveChangesAsync(cancellationToken);
+        return account;
     }
 }

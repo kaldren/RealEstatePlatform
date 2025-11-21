@@ -6,5 +6,5 @@ namespace REP.Modules.Accounts.Application.Contracts;
 public interface IAccountsRepository
 {
     // Update user profile
-    Task<Account> UpdateAccountAsync(UpdateAccountCommand request, CancellationToken cancellationToken);
+    Task<Account?> UpdateAccountAsync(UpdateAccountCommand request, CancellationToken cancellationToken);
 }
