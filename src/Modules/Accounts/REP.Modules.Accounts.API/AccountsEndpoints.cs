@@ -12,14 +12,12 @@ public static class AccountsEndpoints
     {
         var group = endpoints.MapGroup("/api/accounts");
 
-        // Update user profile
-        group.MapPut("/profile", static async (UpdateAccountRequest request, IMediator mediator) =>
+        group.MapPost("settings", static async (UserSettings request, IMediator mediator) =>
         {
             var result = await mediator.SendAsync(new UpdateAccountCommand()
             {
-                Id = request.Id,
+
                 Name = request.Name,
-                PhoneNumber = request.PhoneNumber
             });
 
             return Results.Ok(result);
@@ -27,4 +25,9 @@ public static class AccountsEndpoints
 
         return endpoints;
     }
+}
+
+class UserSettings
+{
+    public string Name { get; set; } = string.Empty;
 }

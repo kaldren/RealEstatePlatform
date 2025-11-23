@@ -7,7 +7,6 @@ public record UpdateAccountCommand : IRequest<UpdateAccountResponse>
 {
     public int Id { get; set; }
     public string Name { get; set; } = string.Empty;
-    public string PhoneNumber { get; set; } = string.Empty;
 }
 
 public class UpdateAccountCommandHandler : IRequestHandler<UpdateAccountCommand, UpdateAccountResponse>
@@ -23,7 +22,7 @@ public class UpdateAccountCommandHandler : IRequestHandler<UpdateAccountCommand,
     {
         var account = await _accountsRepository.UpdateAccountAsync(request, cancellationToken);
 
-        var response = new UpdateAccountResponse(account.Id, account.Name, account.PhoneNumber);
+        var response = new UpdateAccountResponse(account.Name);
 
         return response;
     }

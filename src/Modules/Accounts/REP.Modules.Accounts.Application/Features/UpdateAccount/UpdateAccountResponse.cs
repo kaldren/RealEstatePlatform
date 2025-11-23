@@ -2,7 +2,5 @@
 
 public record UpdateAccountResponse
 (
-    int Id,
-    string Name,
-    string PhoneNumber
+    string Name
 );

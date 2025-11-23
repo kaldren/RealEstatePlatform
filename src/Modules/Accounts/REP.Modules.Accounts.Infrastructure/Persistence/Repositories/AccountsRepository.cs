@@ -19,7 +19,6 @@ public class AccountsRepository : IAccountsRepository
         if (account == null) return null;
 
         account.Name = request.Name;
-        account.PhoneNumber = request.PhoneNumber;
 
         await _accountsDbContext.SaveChangesAsync(cancellationToken);
         return account;

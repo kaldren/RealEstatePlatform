@@ -1,0 +1,51 @@
+﻿@page "/settings"
+@using System.Security.Claims;
+@using Microsoft.AspNetCore.Components.Authorization;
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject IHttpClientFactory HttpClientFactory
+
+<h3>User Settings</h3>
+
+@foreach (var claim in _user?.Claims ?? Enumerable.Empty<Claim>())
+{
+    <p>@claim.Type: @claim.Value</p>
+}
+
+<form method="post" @onsubmit="SubmitSettings" @formname="user-settings">
+    <div class="mb-3">
+        <label for="name" class="form-label">Name</label>
+        <InputText @bind-Value="_currentSettings.Name" class="form-control" id="name" placeholder="Enter your name" />
+    </div>
+    <button type="submit" class="btn btn-primary">Save Settings</button>
+</form>
+
+@code {
+    private string _userEmail = string.Empty;
+    private sbyte[] _userId = Array.Empty<sbyte>();
+    private UserSettings _currentSettings = new UserSettings();
+    ClaimsPrincipal? _user;
+    HttpClient? _httpClient;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _httpClient = HttpClientFactory.CreateClient("REP.Api");
+
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        if (user.Identity is not null && user.Identity.IsAuthenticated)
+        {
+            _userEmail = user.FindFirst(ClaimTypes.PrimarySid)?.Value ?? string.Empty;
+        }
+    }
+
+    private async Task SubmitSettings()
+    {
+        await _httpClient.PostAsJsonAsync("api/accounts/settings", _currentSettings);
+    }
+
+    class UserSettings
+    {
+        public string Name { get; set; }
+    }
+}

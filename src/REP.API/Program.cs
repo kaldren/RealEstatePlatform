@@ -26,6 +26,17 @@ builder.Services.AddMediator();
 builder.Services.AddListingsInfrastructure(builder.Configuration);
 builder.Services.AddAccountsInfrastructure(builder.Configuration);
 
+// Add CORS for https://localhost:7146/
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+    {
+        policy.WithOrigins("https://localhost:7146")
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
+
 var app = builder.Build();
 
 if (isDevelopment && insertDummyData)
@@ -48,6 +59,8 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 
 app.UseAuthorization();
+
+app.UseCors();
 
 app.MapListingsEndpoints();
 app.MapAccountsEndpoints();
