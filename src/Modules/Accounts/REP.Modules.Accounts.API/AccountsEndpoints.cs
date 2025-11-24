@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using REP.Modules.Accounts.Application.Features.UpdateAccount;
 using REP.Shared.Mediator.Contracts;
+using System.Security.Claims;
 
 namespace REP.Modules.Accounts.API;
 
@@ -12,8 +14,10 @@ public static class AccountsEndpoints
     {
         var group = endpoints.MapGroup("/api/accounts");
 
-        group.MapPost("settings", static async (UserSettings request, IMediator mediator) =>
+        group.MapPost("settings", [Authorize] static async (UserSettings request, IMediator mediator, IHttpContextAccessor httpContextAccessor) =>
         {
+            // Get current user from jwt
+
             var result = await mediator.SendAsync(new UpdateAccountCommand()
             {
 
