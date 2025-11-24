@@ -53,4 +53,8 @@ To run the migrations for the Listing Module, follow these steps:
 ```
 dotnet ef migrations add MIGRATION_NAME --project .\src\Modules\Listings\REP.Modules.Listings.Infrastructure --startup-project .\src\REP.API --output-dir Persistence/Migrations
 dotnet ef database update --project .\src\REP.API
+
+Example: 
+dotnet ef migrations add InitAccs --project .\src\Modules\Accounts\REP.Modules.Accounts.Infrastructure --startup-project .\src\REP.API --output-dir .\src\Modules\Accounts\REP.Modules.Accounts.Infrastructure --context AccountsDbContext
+dotnet ef database update --project .\src\Modules\Accounts\REP.Modules.Accounts.Infrastructure --startup-project .\src\REP.API --context AccountsDbContext
 ```

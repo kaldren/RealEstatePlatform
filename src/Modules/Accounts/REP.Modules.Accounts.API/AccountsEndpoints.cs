@@ -12,15 +12,16 @@ public static class AccountsEndpoints
 {
     public static IEndpointRouteBuilder MapAccountsEndpoints(this IEndpointRouteBuilder endpoints)
     {
-        var group = endpoints.MapGroup("/api/accounts");
+        var group = endpoints.MapGroup("/api/accounts").RequireAuthorization();
 
-        group.MapPost("settings", [Authorize] static async (UserSettings request, IMediator mediator, IHttpContextAccessor httpContextAccessor) =>
+        group.MapPost("settings", static async (UserSettings request, IMediator mediator, IHttpContextAccessor httpContextAccessor) =>
         {
             // Get current user from jwt
+            var userId = httpContextAccessor.HttpContext.User.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier").Value;
 
             var result = await mediator.SendAsync(new UpdateAccountCommand()
             {
-
+                Id = userId,
                 Name = request.Name,
             });
 
