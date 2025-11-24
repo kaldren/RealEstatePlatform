@@ -55,6 +55,6 @@ dotnet ef migrations add MIGRATION_NAME --project .\src\Modules\Listings\REP.Mod
 dotnet ef database update --project .\src\REP.API
 
 Example: 
-dotnet ef migrations add InitAccs --project .\src\Modules\Accounts\REP.Modules.Accounts.Infrastructure --startup-project .\src\REP.API --output-dir .\src\Modules\Accounts\REP.Modules.Accounts.Infrastructure --context AccountsDbContext
+dotnet ef migrations add InitAccs2 --project .\src\Modules\Accounts\REP.Modules.Accounts.Infrastructure --startup-project .\src\REP.API --output-dir Persistence/Migrations --context AccountsDbContext
 dotnet ef database update --project .\src\Modules\Accounts\REP.Modules.Accounts.Infrastructure --startup-project .\src\REP.API --context AccountsDbContext
 ```

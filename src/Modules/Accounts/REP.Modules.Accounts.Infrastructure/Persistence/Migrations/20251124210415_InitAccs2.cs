@@ -3,10 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace REP.Modules.Accounts.Infrastructure.src.Modules.Accounts.REP.Modules.Accounts.Infrastructure
+namespace REP.Modules.Accounts.Infrastructure.Persistence.Migrations
 {
     /// <inheritdoc />
-    public partial class InitAccs : Migration
+    public partial class InitAccs2 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

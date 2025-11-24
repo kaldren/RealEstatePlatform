@@ -1,0 +1,17 @@
+﻿@page "/listings"
+@inject IHttpClientFactory HttpClientFactory
+
+<h3>My Listings</h3>
+
+@code {
+    private HttpClient? _httpClient;
+
+    protected override Task OnInitializedAsync()
+    {
+        _httpClient = HttpClientFactory.CreateClient("REP.Api");
+
+        // var listings = _httpClient.GetFromJsonAsync<List<Listing>>("api/listings);
+
+        return Task.CompletedTask;
+    }
+}

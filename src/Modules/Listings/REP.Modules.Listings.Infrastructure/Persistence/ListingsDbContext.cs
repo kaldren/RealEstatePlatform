@@ -13,6 +13,14 @@ public class ListingsDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(ListingsDbContext).Assembly);
+
+        modelBuilder.Entity<Listing>(builder =>
+        {
+            builder.HasKey(e => e.Id);
+            builder.Property(e => e.OwnerId).IsRequired();
+            builder.Property(e => e.Title).IsRequired().HasMaxLength(200);
+            builder.Property(e => e.Description).IsRequired().HasMaxLength(1000);
+        });
     }
 
     // Add entities
