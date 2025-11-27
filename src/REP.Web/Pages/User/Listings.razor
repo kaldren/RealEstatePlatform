@@ -1,17 +1,67 @@
 ﻿@page "/listings"
 @inject IHttpClientFactory HttpClientFactory
+@inject AuthenticationStateProvider GetAuthenticationStateAsync
 
 <h3>My Listings</h3>
 
+@if (_listings == null)
+{
+    <p><em>Loading...</em></p>
+}
+else if (_listings.Count == 0)
+{
+    <p>You have no listings.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Address</th>
+                <th>Created At</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var listing in _listings)
+            {
+                <tr>
+                    <td>@listing.Title</td>
+                    <td>@listing.Description</td>
+                    <td>@listing.Price.ToString("C")</td>
+                    <td>@listing.Address</td>
+                    <td>@listing.CreatedAt.ToLocalTime().ToString("g")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
 @code {
     private HttpClient? _httpClient;
+    private List<UserListingResponse>? _listings;
 
-    protected override Task OnInitializedAsync()
+    protected async override Task OnInitializedAsync()
     {
+        var authstate = await GetAuthenticationStateAsync.GetAuthenticationStateAsync();
+        var user = authstate.User;
+
+        string? userId = user.FindFirst("oid")?.Value;
+
         _httpClient = HttpClientFactory.CreateClient("REP.Api");
 
-        // var listings = _httpClient.GetFromJsonAsync<List<Listing>>("api/listings);
-
-        return Task.CompletedTask;
+        _listings = await _httpClient.GetFromJsonAsync<List<UserListingResponse>>($"api/listings/user/{userId}");
     }
+
+    public record UserListingResponse(
+        Guid Id,
+        Guid OwnerId,
+        string Title,
+        string Description,
+        decimal Price,
+        string Address,
+        DateTimeOffset CreatedAt
+    );
 }
