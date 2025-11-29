@@ -1,0 +1,47 @@
+﻿@inject IHttpClientFactory HttpClientFactory
+
+@page "/create-listing"
+
+<h3>Create listing</h3>
+
+<form method="post" @onsubmit="SubmitListing" @formname="new-listing">
+    <div class="mb-3">
+        <label for="name" class="form-label">Title</label>
+        <InputText @bind-Value="_listing.Title" class="form-control" id="title" placeholder="Enter listing title" />
+
+        <label for="description" class="form-label">Description</label>
+        <InputTextArea @bind-Value="_listing.Description" class="form-control" id="description" placeholder="Enter listing description" />
+
+        <label for="address" class="form-label">Address</label>
+        <InputText @bind-Value="_listing.Address" class="form-control" id="address" placeholder="Enter listing address" />
+
+        <label for="price" class="form-label">Price</label>
+        <InputNumber @bind-Value="_listing.Price" class="form-control" id="price" placeholder="Enter listing price" />
+    </div>
+    <button type="submit" class="btn btn-primary">Create Listing</button>
+</form>
+
+
+
+@code {
+    private HttpClient? _httpClient;
+    private NewListingRequest _listing = new NewListingRequest();
+
+    protected override async Task OnInitializedAsync()
+    {
+        _httpClient = HttpClientFactory.CreateClient("REP.Api");
+    }
+
+    private async Task SubmitListing()
+    {
+        await _httpClient.PostAsJsonAsync("api/listings", _listing);
+    }
+
+    class NewListingRequest
+    {
+        public string Title { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
+        public string Address { get; set; } = string.Empty;
+        public decimal Price { get; set; }
+    }
+}

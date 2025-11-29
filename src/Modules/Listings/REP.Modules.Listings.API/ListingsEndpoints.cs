@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
+using REP.Modules.Listings.Application.Features.CreateNewListing;
 using REP.Modules.Listings.Application.Features.GetSingleListingById;
 using REP.Modules.Listings.Application.Features.GetUserListings;
 using REP.Shared.Mediator.Contracts;
@@ -27,6 +28,31 @@ public static class ListingsEndpoints
             // Inject Mediator
             var result = await mediator.SendAsync(new GetUserListingsQuery(userId));
             return Results.Ok(result);
+        });
+
+        // Add new listing
+        group.MapPost("/", static async (HttpRequest req, IMediator mediator, IHttpContextAccessor httpContextAccessor) =>
+        {
+            var userId = httpContextAccessor.HttpContext.User.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier").Value;
+
+            if (userId is null)
+            {
+                return Results.Unauthorized();
+            }
+
+            var listingRequest = await req.ReadFromJsonAsync<CreateNewListingRequest>();
+            var listingCommand = new CreateNewListingCommand
+            {
+                AuthorId = Guid.Parse(userId),
+                Title = listingRequest.Title,
+                Description = listingRequest.Description,
+                Address = listingRequest.Address,
+                Price = listingRequest.Price
+            };
+
+
+            var result = await mediator.SendAsync(listingCommand);
+            return Results.Created($"/api/listings/{result.ListingId}", result);
         });
 
         return endpoints;

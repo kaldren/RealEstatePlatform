@@ -20,7 +20,7 @@ public class GetUserListingsQueryHandler : IRequestHandler<GetUserListingsQuery,
 
     public async Task<IEnumerable<UserListingResponse>?> Handle(GetUserListingsQuery request, CancellationToken cancellationToken)
     {
-        var listings = await _listingsRepository.GetUserListings(request.UserId, cancellationToken);
+        var listings = await _listingsRepository.GetUserListingsAsync(request.UserId, cancellationToken);
 
         return listings.Select(listing => new UserListingResponse(
             listing.Id,

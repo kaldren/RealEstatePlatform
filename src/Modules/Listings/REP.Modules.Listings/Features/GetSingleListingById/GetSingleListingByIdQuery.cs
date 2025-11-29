@@ -16,7 +16,7 @@ public record GetSingleListingByIdQueryHandler : IRequestHandler<GetSingleListin
 
     public async Task<GetListingByIdResponse?> Handle(GetSingleListingByIdQuery request, CancellationToken cancellationToken)
     {
-        var listing = await _repository.GetSingleListing(request.Id, cancellationToken);
+        var listing = await _repository.GetSingleListingAsync(request.Id, cancellationToken);
 
         return listing is not null
             ? new GetListingByIdResponse(listing.Id, listing.Title, listing.Description, listing.Price, listing.Address)
