@@ -19,7 +19,14 @@
     <Project Path="src/Modules/Listings/REP.Modules.Listings.Infrastructure/REP.Modules.Listings.Infrastructure.csproj" Id="7cd40b54-4ea7-4c85-a1e2-6d4819866dc0" />
     <Project Path="src/Modules/Listings/REP.Modules.Listings/REP.Modules.Listings.Application.csproj" />
   </Folder>
+  <Folder Name="/src/Modules/Reviews/">
+    <Project Path="src/Modules/Reviews/REP.Modules.Reviews.API/REP.Modules.Reviews.API.csproj" Id="4fe0e7a3-a5e8-4eed-a2aa-e2b0180d24b3" />
+    <Project Path="src/Modules/Reviews/REP.Modules.Reviews.Application/REP.Modules.Reviews.Application.csproj" Id="74a60afa-d5c2-45e4-a3cd-3d0b732d2502" />
+    <Project Path="src/Modules/Reviews/REP.Modules.Reviews.Domain/REP.Modules.Reviews.Domain.csproj" Id="e2af87f1-7772-4553-8f39-4ac5ee115643" />
+    <Project Path="src/Modules/Reviews/REP.Modules.Reviews.Infrastructure/REP.Modules.Reviews.Infrastructure.csproj" Id="f813f9ec-1315-44b5-b55a-d7b70c2e8991" />
+  </Folder>
   <Folder Name="/src/Shared/">
+    <Project Path="src/Shared/REP.Shared.DbInit/REP.Shared.DbInit.csproj" Id="a847b960-2ffb-428a-9abe-372c7ebda91f" />
     <Project Path="src/Shared/REP.Shared.Mediator/REP.Shared.Mediator.csproj" />
   </Folder>
 </Solution>

@@ -65,6 +65,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\..\..\Shared\REP.Shared.DbInit\REP.Shared.DbInit.csproj" />
 	  <ProjectReference Include="..\REP.Modules.Accounts.Application\REP.Modules.Accounts.Application.csproj" />
 	  <ProjectReference Include="..\REP.Modules.Accounts.Domain\REP.Modules.Accounts.Domain.csproj" />
 	</ItemGroup>

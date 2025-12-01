@@ -1,10 +1,8 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using REP.Modules.Accounts.Application.Features.UpdateAccount;
 using REP.Shared.Mediator.Contracts;
-using System.Security.Claims;
 
 namespace REP.Modules.Accounts.API;
 
