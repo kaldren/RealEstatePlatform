@@ -4,7 +4,7 @@ using REP.Shared.DbInit;
 
 namespace REP.Modules.Reviews.Infrastructure.Persistence;
 
-public static class ReviewsinitDatabase
+public static class ReviewsInitDatabase
 {
     // Insert dummy data
     public static async Task InitializeAsync(ReviewsDbContext dbContext)
@@ -17,7 +17,7 @@ public static class ReviewsinitDatabase
                 // Alice to Kaloyan's listings
                 new Review
                 {
-                    Id = Guid.NewGuid(),
+                    Id = DbInitializer.Review__SampleReview1,
                     ListingId = DbInitializer.Listing__SampleListing1,
                     AuthorId = DbInitializer.Account__Alice,
                     Rating = 5,
@@ -25,7 +25,7 @@ public static class ReviewsinitDatabase
                 },
                 new Review
                 {
-                    Id = Guid.NewGuid(),
+                    Id = DbInitializer.Review__SampleReview2,
                     ListingId = DbInitializer.Listing__SampleListing2,
                     AuthorId = DbInitializer.Account__Alice,
                     Rating = 4,
@@ -35,7 +35,7 @@ public static class ReviewsinitDatabase
                 // Kaloyan to Alice's listings
                 new Review
                 {
-                    Id = Guid.NewGuid(),
+                    Id = DbInitializer.Review__SampleReview3,
                     ListingId = DbInitializer.Listing__SampleListing3,
                     AuthorId = DbInitializer.Account__Kaloyan,
                     Rating = 5,
@@ -43,7 +43,7 @@ public static class ReviewsinitDatabase
                 },
                 new Review
                 {
-                    Id = Guid.NewGuid(),
+                    Id = DbInitializer.Review__SampleReview4,
                     ListingId = DbInitializer.Listing__SampleListing4,
                     AuthorId = DbInitializer.Account__Kaloyan,
                     Rating = 4,

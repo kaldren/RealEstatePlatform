@@ -7,6 +7,8 @@ using REP.Modules.Listings.Infrastructure.Persistence;
 using REP.Modules.Accounts.API;
 using REP.Modules.Accounts.Infrastructure.Extensions;
 using REP.Modules.Accounts.Infrastructure.Persistence;
+using REP.Modules.Reviews.Infrastructure.Extensions;
+using REP.Modules.Reviews.Infrastructure.Persistence;
 
 bool isDevelopment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development";
 bool insertDummyData = true;
@@ -25,6 +27,7 @@ builder.Services.AddMediator();
 
 builder.Services.AddListingsInfrastructure(builder.Configuration);
 builder.Services.AddAccountsInfrastructure(builder.Configuration);
+builder.Services.AddReviewsInfrastructure(builder.Configuration);
 
 // Add CORS for https://localhost:7146/
 builder.Services.AddCors(options =>
@@ -47,6 +50,7 @@ if (isDevelopment && insertDummyData)
     {
         await ListingsInitDatabase.InitializeAsync(scope.ServiceProvider.GetRequiredService<ListingsDbContext>());
         await AccountsInitDatabase.InitializeAsync(scope.ServiceProvider.GetRequiredService<AccountsDbContext>());
+        await ReviewsInitDatabase.InitializeAsync(scope.ServiceProvider.GetRequiredService<ReviewsDbContext>());
     }
 }
 
@@ -66,6 +70,7 @@ app.UseCors();
 
 app.MapListingsEndpoints();
 app.MapAccountsEndpoints();
+app.MapReviewsEndpoints();
 
 app.MapControllers();
 
