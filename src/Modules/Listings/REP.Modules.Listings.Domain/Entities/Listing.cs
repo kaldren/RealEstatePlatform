@@ -8,6 +8,8 @@ public class Listing
     public string Description { get; set; }
     public decimal Price { get; set; }
     public string Address { get; set; }
+
+    public string ShortUrl { get; set; }
     public DateTimeOffset CreatedAt { get; set; }
 
     public Listing(Guid id, Guid ownerId, string title, string description, decimal price, string address, DateTimeOffset createdAt)

@@ -23,7 +23,7 @@ public class CreateNewListingCommandHandler : IRequestHandler<CreateNewListingCo
 
     public async Task<CreateNewListingResponse> Handle(CreateNewListingCommand request, CancellationToken cancellationToken)
     {
-        var respone = await _listingsRepository.AddListingAsync(request.AuthorId, request.Title, request.Description, request.Address, request.Price);
+        var respone = await _listingsRepository.CreateListingAsync(request.AuthorId, request.Title, request.Description, request.Address, request.Price);
 
         return new CreateNewListingResponse(respone.Id);
     }

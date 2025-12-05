@@ -29,7 +29,7 @@ public static class AccountsInitDatabase
                 },
                 new Domain.Entities.Account
                 {
-                    Id = Guid.NewGuid(),
+                    Id = Guid.CreateVersion7(),
                     Email = "jack_smith@example.com",
                     Name = "Jack Smith",
                     PhoneNumber = "555-555-5555"

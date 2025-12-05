@@ -5,5 +5,5 @@ public interface IListingsRepository
 {
     Task<Listing?> GetSingleListingAsync(Guid id, CancellationToken cancellationToken = default);
     Task<IEnumerable<Listing>> GetUserListingsAsync(Guid userId, CancellationToken cancellationToken = default);
-    Task<Listing?> AddListingAsync(Guid AuthorId, string Title, string Description, string Address, decimal Price, CancellationToken cancellationToken = default);
+    Task<Listing?> CreateListingAsync(Guid AuthorId, string Title, string Description, string Address, decimal Price, CancellationToken cancellationToken = default);
 }

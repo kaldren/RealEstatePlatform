@@ -1,0 +1,53 @@
+﻿@page "/listings/{listingId}"
+@inject IHttpClientFactory HttpClientFactory
+
+<h3>Listing</h3>
+
+<p>Listing ID: @ListingId</p>
+
+@if (_reviews == null)
+{
+    <p><em>Loading reviews...</em></p>
+}
+else if (_reviews.Count == 0)
+{
+    <p>No reviews for this listing.</p>
+}
+else
+{
+    <h4>Reviews:</h4>
+    <ul>
+        @foreach (var review in _reviews)
+        {
+            <li>
+                <strong>Rating:</strong> @review.Rating<br />
+                <strong>Comment:</strong> @review.Comment<br />
+                <em>Posted on @review.CreatedAt.ToLocalTime().ToString("g")</em>
+            </li>
+        }
+    </ul>
+}
+
+@code {
+    [Parameter]
+    public string ListingId { get; set; }
+
+    private HttpClient? _httpClient;
+    private List<ListingReview>? _reviews;
+
+    protected async override Task OnInitializedAsync()
+    {
+        _httpClient = HttpClientFactory.CreateClient("REP.Api");
+
+        _reviews = await _httpClient.GetFromJsonAsync<List<ListingReview>>($"api/listings/{ListingId}/reviews");
+    }
+
+    public record ListingReview(
+        Guid Id,
+        Guid ListingId,
+        Guid ReviewerId,
+        string Comment,
+        int Rating,
+        DateTime CreatedAt
+    );
+}
