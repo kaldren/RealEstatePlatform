@@ -4,6 +4,7 @@ public record GetListingByIdResponse(
     Guid Id,
     string Title,
     string Description,
-    decimal Price,
-    string Address
+    decimal? Price,
+    string? Currency,
+    string Location
 );

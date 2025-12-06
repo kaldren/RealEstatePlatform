@@ -1,9 +1,5 @@
 ﻿using REP.Modules.Listings.Application.Contracts;
-using REP.Modules.Listings.Application.Features.GetSingleListingById;
 using REP.Shared.Mediator.Contracts;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace REP.Modules.Listings.Application.Features.GetUserListings;
 
@@ -27,8 +23,9 @@ public class GetUserListingsQueryHandler : IRequestHandler<GetUserListingsQuery,
             listing.OwnerId,
             listing.Title,
             listing.Description,
-            listing.Price,
-            listing.Address,
+            listing.Price.Amount,
+            listing.Price.Currency?.Code,
+            listing.Location.ToString(),
             listing.CreatedAt
         ));
     }

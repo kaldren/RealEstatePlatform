@@ -20,8 +20,8 @@ public class ListingsRepository : IListingsRepository
             AuthorId,
             Title,
             Description,
-            Price,
-            Address,
+            new Price(Price, new Currency("USD", "$")),
+            new Location("USA", "CA", "Cityville", "12345", Address),
             DateTimeOffset.UtcNow
         );
 

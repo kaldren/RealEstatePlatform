@@ -28,7 +28,7 @@ else
             @foreach (var listing in _listings)
             {
                 <tr>
-                    <td>@listing.Title</td>
+                    <td><NavLink class="d-block" href="@($"/listings/{listing.Id}")">@listing.Title</NavLink></td>
                     <td>@listing.Description</td>
                     <td>@listing.Price.ToString("C")</td>
                     <td>@listing.Address</td>

@@ -9,7 +9,8 @@ public record UserListingResponse(
     Guid OwnerId,
     string Title,
     string Description,
-    decimal Price,
+    decimal? Price,
+    string? Currency,
     string Address,
     DateTimeOffset CreatedAt
 );

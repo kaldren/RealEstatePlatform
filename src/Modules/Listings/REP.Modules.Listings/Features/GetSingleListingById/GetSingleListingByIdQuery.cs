@@ -19,7 +19,7 @@ public record GetSingleListingByIdQueryHandler : IRequestHandler<GetSingleListin
         var listing = await _repository.GetSingleListingAsync(request.Id, cancellationToken);
 
         return listing is not null
-            ? new GetListingByIdResponse(listing.Id, listing.Title, listing.Description, listing.Price, listing.Address)
+            ? new GetListingByIdResponse(listing.Id, listing.Title, listing.Description, listing.Price.Amount, listing.Price.Currency?.Code, listing.Location.ToString())
             : null;
     }
 }

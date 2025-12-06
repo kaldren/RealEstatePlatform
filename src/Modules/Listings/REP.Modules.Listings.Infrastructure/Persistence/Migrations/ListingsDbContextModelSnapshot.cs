@@ -28,10 +28,6 @@ namespace REP.Modules.Listings.Infrastructure.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTimeOffset>("CreatedAt")
                         .HasColumnType("datetimeoffset");
 
@@ -43,12 +39,9 @@ namespace REP.Modules.Listings.Infrastructure.Persistence.Migrations
                     b.Property<Guid>("OwnerId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
                     b.Property<string>("ShortUrl")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -57,7 +50,100 @@ namespace REP.Modules.Listings.Infrastructure.Persistence.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ShortUrl")
+                        .IsUnique();
+
                     b.ToTable("Listings");
+                });
+
+            modelBuilder.Entity("REP.Modules.Listings.Domain.Entities.Listing", b =>
+                {
+                    b.OwnsOne("REP.Modules.Listings.Domain.Entities.Location", "Location", b1 =>
+                        {
+                            b1.Property<Guid>("ListingId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<string>("AddressLine")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)")
+                                .HasColumnName("AddressLine");
+
+                            b1.Property<string>("City")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)")
+                                .HasColumnName("City");
+
+                            b1.Property<string>("Country")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)")
+                                .HasColumnName("Country");
+
+                            b1.Property<string>("State")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)")
+                                .HasColumnName("State");
+
+                            b1.Property<string>("ZipCode")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)")
+                                .HasColumnName("ZipCode");
+
+                            b1.HasKey("ListingId");
+
+                            b1.ToTable("Listings");
+
+                            b1.WithOwner()
+                                .HasForeignKey("ListingId");
+                        });
+
+                    b.OwnsOne("REP.Modules.Listings.Domain.Entities.Price", "Price", b1 =>
+                        {
+                            b1.Property<Guid>("ListingId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<decimal?>("Amount")
+                                .HasPrecision(18, 2)
+                                .HasColumnType("decimal(18,2)")
+                                .HasColumnName("PriceAmount");
+
+                            b1.HasKey("ListingId");
+
+                            b1.ToTable("Listings");
+
+                            b1.WithOwner()
+                                .HasForeignKey("ListingId");
+
+                            b1.OwnsOne("REP.Modules.Listings.Domain.Entities.Currency", "Currency", b2 =>
+                                {
+                                    b2.Property<Guid>("PriceListingId")
+                                        .HasColumnType("uniqueidentifier");
+
+                                    b2.Property<string>("Code")
+                                        .IsRequired()
+                                        .HasColumnType("nvarchar(max)")
+                                        .HasColumnName("PriceCurrencyCode");
+
+                                    b2.Property<string>("Symbol")
+                                        .IsRequired()
+                                        .HasColumnType("nvarchar(max)")
+                                        .HasColumnName("PriceCurrencySymbol");
+
+                                    b2.HasKey("PriceListingId");
+
+                                    b2.ToTable("Listings");
+
+                                    b2.WithOwner()
+                                        .HasForeignKey("PriceListingId");
+                                });
+
+                            b1.Navigation("Currency");
+                        });
+
+                    b.Navigation("Location")
+                        .IsRequired();
+
+                    b.Navigation("Price")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

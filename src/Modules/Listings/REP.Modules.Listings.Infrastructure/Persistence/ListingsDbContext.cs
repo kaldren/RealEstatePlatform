@@ -20,6 +20,47 @@ public class ListingsDbContext : DbContext
             builder.Property(e => e.OwnerId).IsRequired();
             builder.Property(e => e.Title).IsRequired().HasMaxLength(200);
             builder.Property(e => e.Description).IsRequired().HasMaxLength(1000);
+            builder.Property(e => e.ShortUrl).IsRequired();
+            builder.Property(e => e.CreatedAt).IsRequired();
+
+            // ----- PRICE -----
+            builder.OwnsOne(x => x.Price, price =>
+            {
+                price.Property(p => p.Amount)
+                    .HasColumnName("PriceAmount")
+                    .HasPrecision(18, 2);
+
+                price.OwnsOne(p => p.Currency!, currency =>
+                {
+                    currency.Property(c => c.Code)
+                        .HasColumnName("PriceCurrencyCode");
+
+                    currency.Property(c => c.Symbol)
+                        .HasColumnName("PriceCurrencySymbol");
+                });
+            });
+
+            // ----- LOCATION -----
+            builder.OwnsOne(x => x.Location, location =>
+            {
+                location.Property(p => p.Country)
+                    .HasColumnName("Country");
+
+                location.Property(p => p.State)
+                    .HasColumnName("State");
+
+                location.Property(p => p.City)
+                    .HasColumnName("City");
+
+                location.Property(p => p.ZipCode)
+                    .HasColumnName("ZipCode");
+
+                location.Property(p => p.AddressLine)
+                    .HasColumnName("AddressLine");
+            });
+
+            // Make ShortUrl unique
+            builder.HasIndex(e => e.ShortUrl).IsUnique();
         });
     }
 
