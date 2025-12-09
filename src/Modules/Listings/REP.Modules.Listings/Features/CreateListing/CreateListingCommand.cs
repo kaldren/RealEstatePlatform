@@ -1,9 +1,10 @@
 ﻿using REP.Modules.Listings.Application.Contracts;
+using REP.Modules.Listings.Application.Features.CreateListing;
 using REP.Shared.Mediator.Contracts;
 
-namespace REP.Modules.Listings.Application.Features.CreateNewListing;
+namespace REP.Modules.Listings.Application.Features.CreateListing;
 
-public class CreateNewListingCommand : IRequest<CreateNewListingResponse>
+public class CreateListingCommand : IRequest<CreateListingResponse>
 {
     public Guid AuthorId { get; set; }
     public string Title { get; set; } = string.Empty;
@@ -12,7 +13,7 @@ public class CreateNewListingCommand : IRequest<CreateNewListingResponse>
     public decimal Price { get; set; }
 }
 
-public class CreateNewListingCommandHandler : IRequestHandler<CreateNewListingCommand, CreateNewListingResponse>
+public class CreateNewListingCommandHandler : IRequestHandler<CreateListingCommand, CreateListingResponse>
 {
     private readonly IListingsRepository _listingsRepository;
 
@@ -21,10 +22,10 @@ public class CreateNewListingCommandHandler : IRequestHandler<CreateNewListingCo
         _listingsRepository = listingsRepository;
     }
 
-    public async Task<CreateNewListingResponse> Handle(CreateNewListingCommand request, CancellationToken cancellationToken)
+    public async Task<CreateListingResponse> Handle(CreateListingCommand request, CancellationToken cancellationToken)
     {
         var respone = await _listingsRepository.CreateListingAsync(request.AuthorId, request.Title, request.Description, request.Address, request.Price);
 
-        return new CreateNewListingResponse(respone.Id);
+        return new CreateListingResponse(respone.Id);
     }
 }

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
-using REP.Modules.Listings.Application.Features.CreateNewListing;
+using REP.Modules.Listings.Application.Features.CreateListing;
 using REP.Modules.Listings.Application.Features.GetSingleListingById;
 using REP.Modules.Listings.Application.Features.GetUserListings;
 using REP.Shared.Mediator.Contracts;
@@ -17,20 +17,18 @@ public static class ListingsEndpoints
         // Get listing by id
         group.MapGet("/{id:guid}", static async (Guid id, IMediator mediator) =>
         {
-            // Inject Mediator
             var result = await mediator.SendAsync(new GetSingleListingByIdQuery(id));
             return result is null ? Results.NotFound() : Results.Ok(result);
         });
 
-        // Get all listings of a user
-        group.MapGet("/user/{userId:guid}", static async (Guid userId, IMediator mediator) =>
+        // Get all listings of a given author
+        group.MapGet("/author/{authorId:guid}", static async (Guid authorId, IMediator mediator) =>
         {
-            // Inject Mediator
-            var result = await mediator.SendAsync(new GetUserListingsQuery(userId));
+            var result = await mediator.SendAsync(new GetAuthorListingsQuery(authorId));
             return Results.Ok(result);
         });
 
-        // Add new listing
+        // Create new listing
         group.MapPost("/", static async (HttpRequest req, IMediator mediator, IHttpContextAccessor httpContextAccessor) =>
         {
             var userId = httpContextAccessor.HttpContext.User.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier").Value;
@@ -40,8 +38,8 @@ public static class ListingsEndpoints
                 return Results.Unauthorized();
             }
 
-            var listingRequest = await req.ReadFromJsonAsync<CreateNewListingRequest>();
-            var listingCommand = new CreateNewListingCommand
+            var listingRequest = await req.ReadFromJsonAsync<CreateListingRequest>();
+            var listingCommand = new CreateListingCommand
             {
                 AuthorId = Guid.Parse(userId),
                 Title = listingRequest.Title,
