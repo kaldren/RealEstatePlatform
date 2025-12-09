@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Shared\REP.Shared.Mediator\REP.Shared.Mediator.csproj" />
+    <ProjectReference Include="..\..\Accounts\REP.Modules.Accounts.Application\REP.Modules.Accounts.Application.csproj" />
     <ProjectReference Include="..\REP.Modules.Reviews.Domain\REP.Modules.Reviews.Domain.csproj" />
   </ItemGroup>
 

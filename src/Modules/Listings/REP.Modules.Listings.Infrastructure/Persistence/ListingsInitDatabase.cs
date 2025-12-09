@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using REP.Modules.Listings.Domain.Entities;
+using REP.Modules.Listings.Domain.ValueObjects;
 using REP.Shared.DbInit;
 
 namespace REP.Modules.Listings.Infrastructure.Persistence;

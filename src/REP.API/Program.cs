@@ -9,6 +9,7 @@ using REP.Modules.Accounts.Infrastructure.Extensions;
 using REP.Modules.Accounts.Infrastructure.Persistence;
 using REP.Modules.Reviews.Infrastructure.Extensions;
 using REP.Modules.Reviews.Infrastructure.Persistence;
+using REP.Modules.Accounts.Application.Extensions;
 
 bool isDevelopment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development";
 bool insertDummyData = true;
@@ -41,6 +42,9 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddHttpContextAccessor();
+
+// Modules APIs
+builder.Services.AddAccountsApplications();
 
 var app = builder.Build();
 

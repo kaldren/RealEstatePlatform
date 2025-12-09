@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using REP.Modules.Listings.Domain.Entities;
+using REP.Modules.Listings.Domain.ValueObjects;
+using REP.Shared.Kernel.Abstractions;
 
 namespace REP.Modules.Listings.Infrastructure.Persistence;
 
@@ -17,7 +18,7 @@ public class ListingsDbContext : DbContext
         modelBuilder.Entity<Listing>(builder =>
         {
             builder.HasKey(e => e.Id);
-            builder.Property(e => e.OwnerId).IsRequired();
+            builder.Property(e => e.AuthorId).IsRequired();
             builder.Property(e => e.Title).IsRequired().HasMaxLength(200);
             builder.Property(e => e.Description).IsRequired().HasMaxLength(1000);
             builder.Property(e => e.ShortUrl).IsRequired();
@@ -62,6 +63,17 @@ public class ListingsDbContext : DbContext
             // Make ShortUrl unique
             builder.HasIndex(e => e.ShortUrl).IsUnique();
         });
+    }
+
+    public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+    {
+        var domainEntities = ChangeTracker
+            .Entries<IEntity>()
+            .Select(e => e.Entity)
+            .Where(e => e.DomainEvents.Any())
+            .ToList();
+
+        return base.SaveChangesAsync(cancellationToken);
     }
 
     // Add entities

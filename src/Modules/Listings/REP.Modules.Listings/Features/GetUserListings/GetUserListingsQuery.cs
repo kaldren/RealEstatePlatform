@@ -20,7 +20,7 @@ public class GetUserListingsQueryHandler : IRequestHandler<GetUserListingsQuery,
 
         return listings.Select(listing => new UserListingResponse(
             listing.Id,
-            listing.OwnerId,
+            listing.AuthorId,
             listing.Title,
             listing.Description,
             listing.Price.Amount,

@@ -15,40 +15,26 @@ public static class ReviewsInitDatabase
         {
             dbContext.Reviews.AddRange(
                 // Alice to Kaloyan's listings
-                new Review
-                {
-                    Id = DbInitializer.Review__SampleReview1,
-                    ListingId = DbInitializer.Listing__SampleListing1,
-                    AuthorId = DbInitializer.Account__Alice,
-                    Rating = 5,
-                    Comment = "Great place, definitely worth the price!",
-                },
-                new Review
-                {
-                    Id = DbInitializer.Review__SampleReview2,
-                    ListingId = DbInitializer.Listing__SampleListing2,
-                    AuthorId = DbInitializer.Account__Alice,
-                    Rating = 4,
-                    Comment = "Exactly what I'm looking for!",
-                },
+                new Review(listingId: DbInitializer.Listing__SampleListing1,
+                           authorId: DbInitializer.Account__Alice,
+                           rating: 5,
+                           comment: "Great place, enjoyed my stay!"),
+
+                new Review(listingId: DbInitializer.Listing__SampleListing2,
+                           authorId: DbInitializer.Account__Alice,
+                           rating: 4,
+                           comment: "Exactly what I'm looking for!"),
 
                 // Kaloyan to Alice's listings
-                new Review
-                {
-                    Id = DbInitializer.Review__SampleReview3,
-                    ListingId = DbInitializer.Listing__SampleListing3,
-                    AuthorId = DbInitializer.Account__Kaloyan,
-                    Rating = 5,
-                    Comment = "Might consider buying this place.",
-                },
-                new Review
-                {
-                    Id = DbInitializer.Review__SampleReview4,
-                    ListingId = DbInitializer.Listing__SampleListing4,
-                    AuthorId = DbInitializer.Account__Kaloyan,
-                    Rating = 4,
-                    Comment = "I am waiting on a bank response and might proceed with the purchase.",
-                });
+                new Review(listingId: DbInitializer.Listing__SampleListing3,
+                           authorId: DbInitializer.Account__Kaloyan,
+                           rating: 5,
+                           comment: "Might consider buying this place."),
+
+                new Review(listingId: DbInitializer.Listing__SampleListing4,
+                           authorId: DbInitializer.Account__Kaloyan,
+                           rating: 4,
+                           comment: "I am waiting on a bank response and might proceed with the purchase."));
             await dbContext.SaveChangesAsync();
         }
     }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using REP.Modules.Listings.Application.Contracts;
 using REP.Modules.Listings.Domain.Entities;
+using REP.Modules.Listings.Domain.ValueObjects;
 
 namespace REP.Modules.Listings.Infrastructure.Persistence.Repositories;
 
@@ -37,7 +38,7 @@ public class ListingsRepository : IListingsRepository
 
     public async Task<IEnumerable<Listing>> GetUserListingsAsync(Guid userId, CancellationToken cancellationToken = default)
     {
-        var listings = _db.Listings.Where(listing => listing.OwnerId == userId);
+        var listings = _db.Listings.Where(listing => listing.AuthorId == userId);
         return await listings.ToListAsync(cancellationToken);
     }
 }

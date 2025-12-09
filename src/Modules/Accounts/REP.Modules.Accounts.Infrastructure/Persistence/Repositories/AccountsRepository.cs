@@ -1,4 +1,5 @@
-﻿using REP.Modules.Accounts.Application.Contracts;
+﻿using Microsoft.EntityFrameworkCore;
+using REP.Modules.Accounts.Application.Contracts;
 using REP.Modules.Accounts.Application.Features.UpdateAccount;
 using REP.Modules.Accounts.Domain.Entities;
 
@@ -13,14 +14,21 @@ public class AccountsRepository : IAccountsRepository
         _accountsDbContext = accountsDbContext;
     }
 
+    public async Task<Account?> GetAccountByIdAsync(Guid id, CancellationToken cancellationToken)
+    {
+        return await _accountsDbContext.Accounts.FindAsync(new object[] { id }, cancellationToken);
+    }
+
     public async Task<Account?> UpdateAccountAsync(UpdateAccountCommand request, CancellationToken cancellationToken)
     {
         var account = await _accountsDbContext.Accounts.FindAsync(new object[] { request.Id }, cancellationToken);
+
         if (account == null) return null;
 
-        account.Name = request.Name;
+        account.UpdateName(request.Name);
 
         await _accountsDbContext.SaveChangesAsync(cancellationToken);
+
         return account;
     }
 }

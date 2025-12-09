@@ -1,4 +1,4 @@
-﻿using REP.Modules.Listings.Domain.Entities;
+﻿using REP.Modules.Listings.Domain.ValueObjects;
 
 namespace REP.Modules.Listings.Application.Contracts;
 public interface IListingsRepository

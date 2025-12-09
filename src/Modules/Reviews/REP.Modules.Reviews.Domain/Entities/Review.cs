@@ -1,11 +1,22 @@
-﻿namespace REP.Modules.Reviews.Domain.Entities;
+﻿using REP.Shared.Kernel.Abstractions;
 
-public class Review
+namespace REP.Modules.Reviews.Domain.Entities;
+
+public class Review : Entity
 {
-    public Guid Id { get; set; }
-    public Guid ListingId { get; set; }
-    public Guid AuthorId { get; set; }
-    public int Rating { get; set; }
-    public string Comment { get; set; } = null!;
-    public DateTimeOffset CreatedAt { get; set; }
+    public Guid Id { get; private set; }
+    public Guid ListingId { get; private set; }
+    public Guid AuthorId { get; private set; }
+    public int Rating { get; private set; }
+    public string Comment { get; private set; } = null!;
+
+    public Review(Guid listingId, Guid authorId, int rating, string comment)
+    {
+        Id = Guid.NewGuid();
+        ListingId = listingId;
+        AuthorId = authorId;
+        Rating = rating;
+        Comment = comment;
+        CreatedAt = DateTimeOffset.UtcNow;
+    }
 }

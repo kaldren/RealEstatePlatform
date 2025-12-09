@@ -22,10 +22,13 @@ namespace REP.Modules.Listings.Infrastructure.Persistence.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("REP.Modules.Listings.Domain.Entities.Listing", b =>
+            modelBuilder.Entity("REP.Modules.Listings.Domain.ValueObjects.Listing", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("AuthorId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTimeOffset>("CreatedAt")
@@ -35,9 +38,6 @@ namespace REP.Modules.Listings.Infrastructure.Persistence.Migrations
                         .IsRequired()
                         .HasMaxLength(1000)
                         .HasColumnType("nvarchar(1000)");
-
-                    b.Property<Guid>("OwnerId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("ShortUrl")
                         .IsRequired()
@@ -56,9 +56,9 @@ namespace REP.Modules.Listings.Infrastructure.Persistence.Migrations
                     b.ToTable("Listings");
                 });
 
-            modelBuilder.Entity("REP.Modules.Listings.Domain.Entities.Listing", b =>
+            modelBuilder.Entity("REP.Modules.Listings.Domain.ValueObjects.Listing", b =>
                 {
-                    b.OwnsOne("REP.Modules.Listings.Domain.Entities.Location", "Location", b1 =>
+                    b.OwnsOne("REP.Modules.Listings.Domain.ValueObjects.Location", "Location", b1 =>
                         {
                             b1.Property<Guid>("ListingId")
                                 .HasColumnType("uniqueidentifier");
@@ -96,7 +96,7 @@ namespace REP.Modules.Listings.Infrastructure.Persistence.Migrations
                                 .HasForeignKey("ListingId");
                         });
 
-                    b.OwnsOne("REP.Modules.Listings.Domain.Entities.Price", "Price", b1 =>
+                    b.OwnsOne("REP.Modules.Listings.Domain.ValueObjects.Price", "Price", b1 =>
                         {
                             b1.Property<Guid>("ListingId")
                                 .HasColumnType("uniqueidentifier");

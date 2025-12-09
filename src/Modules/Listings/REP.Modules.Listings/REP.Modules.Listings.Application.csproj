@@ -69,4 +69,9 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="EventHandlers\Integration\" />
+    <Folder Include="Events\" />
+  </ItemGroup>
+
 </Project>

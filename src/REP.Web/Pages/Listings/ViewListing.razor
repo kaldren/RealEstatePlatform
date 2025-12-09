@@ -1,4 +1,5 @@
 ﻿@page "/listings/{listingId}"
+@using REP.Web.DTOs.Listings
 @inject IHttpClientFactory HttpClientFactory
 
 <h3>Listing</h3>
@@ -20,6 +21,7 @@ else
         @foreach (var review in _reviews)
         {
             <li>
+                <strong>Author: @review.Author</strong><br />
                 <strong>Rating:</strong> @review.Rating<br />
                 <strong>Comment:</strong> @review.Comment<br />
                 <em>Posted on @review.CreatedAt.ToLocalTime().ToString("g")</em>
@@ -33,21 +35,12 @@ else
     public string ListingId { get; set; }
 
     private HttpClient? _httpClient;
-    private List<ListingReview>? _reviews;
+    private List<ListingReviewDto>? _reviews;
 
     protected async override Task OnInitializedAsync()
     {
         _httpClient = HttpClientFactory.CreateClient("REP.Api");
 
-        _reviews = await _httpClient.GetFromJsonAsync<List<ListingReview>>($"api/listings/{ListingId}/reviews");
+        _reviews = await _httpClient.GetFromJsonAsync<List<ListingReviewDto>>($"api/listings/{ListingId}/reviews");
     }
-
-    public record ListingReview(
-        Guid Id,
-        Guid ListingId,
-        Guid ReviewerId,
-        string Comment,
-        int Rating,
-        DateTime CreatedAt
-    );
 }

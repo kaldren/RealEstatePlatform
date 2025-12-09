@@ -1,5 +1,6 @@
 <Solution>
   <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
     <File Path="README.md" />
   </Folder>
   <Folder Name="/src/">
@@ -27,6 +28,7 @@
   </Folder>
   <Folder Name="/src/Shared/">
     <Project Path="src/Shared/REP.Shared.DbInit/REP.Shared.DbInit.csproj" Id="a847b960-2ffb-428a-9abe-372c7ebda91f" />
+    <Project Path="src/Shared/REP.Shared.Kernel/REP.Shared.Kernel.csproj" Id="d5cda341-a548-4a9e-977b-478cf1f6a8fe" />
     <Project Path="src/Shared/REP.Shared.Mediator/REP.Shared.Mediator.csproj" />
   </Folder>
 </Solution>
