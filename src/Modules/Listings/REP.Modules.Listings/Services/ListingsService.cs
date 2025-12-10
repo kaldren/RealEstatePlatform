@@ -1,6 +1,7 @@
 ﻿using REP.Modules.Listings.Application.Contracts;
 using REP.Modules.Listings.Application.Features.CreateListing;
 using REP.Modules.Listings.Application.Features.GetSingleListingById;
+using REP.Modules.Listings.Application.Features.GetUserListings;
 using REP.Shared.Mediator.Contracts;
 
 namespace REP.Modules.Listings.Application.Services;
@@ -14,9 +15,9 @@ public class ListingsService : IListingsService
         _mediator = mediator;
     }
 
-    public Task<CreateListingResponse> CreateListingAsync(CreateListingRequest request)
+    public async Task<CreateListingResponse> CreateListingAsync(CreateListingRequest request)
     {
-        return _mediator.SendAsync(new CreateListingCommand
+        return await _mediator.SendAsync(new CreateListingCommand
         {
             AuthorId = request.AuthorId,
             Title = request.Title,
@@ -26,8 +27,13 @@ public class ListingsService : IListingsService
         });
     }
 
-    public Task<GetListingByIdResponse?> GetListingByIdAsync(Guid listingId)
+    public async Task<GetListingByIdResponse?> GetListingByIdAsync(Guid listingId)
     {
-        return _mediator.SendAsync(new GetSingleListingByIdQuery(listingId));
+        return await _mediator.SendAsync(new GetSingleListingByIdQuery(listingId));
+    }
+
+    public async Task<IEnumerable<AuthorListingResponse>> GetListingsByAuthorIdAsync(Guid authorId)
+    {
+        return await _mediator.SendAsync(new GetAuthorListingsQuery(authorId));
     }
 }

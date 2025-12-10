@@ -52,7 +52,7 @@ else
 
         _httpClient = HttpClientFactory.CreateClient("REP.Api");
 
-        _listings = await _httpClient.GetFromJsonAsync<List<UserListingResponse>>($"api/listings/user/{userId}");
+        _listings = await _httpClient.GetFromJsonAsync<List<UserListingResponse>>($"api/listings/author/{userId}");
     }
 
     public record UserListingResponse(

@@ -38,7 +38,6 @@ public class ListingsRepository : IListingsRepository
 
     public async Task<IEnumerable<Listing>> GetUserListingsAsync(Guid userId, CancellationToken cancellationToken = default)
     {
-        var listings = _db.Listings.Where(listing => listing.AuthorId == userId);
-        return await listings.ToListAsync(cancellationToken);
+        return await _db.Listings.Where(listing => listing.AuthorId == userId).ToListAsync(cancellationToken);
     }
 }

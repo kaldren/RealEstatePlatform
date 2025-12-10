@@ -10,6 +10,7 @@ using REP.Modules.Accounts.Infrastructure.Persistence;
 using REP.Modules.Reviews.Infrastructure.Extensions;
 using REP.Modules.Reviews.Infrastructure.Persistence;
 using REP.Modules.Accounts.Application.Extensions;
+using REP.Modules.Listings.Application.Extensions;
 
 bool isDevelopment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development";
 bool insertDummyData = true;
@@ -45,6 +46,9 @@ builder.Services.AddHttpContextAccessor();
 
 // Modules APIs
 builder.Services.AddAccountsApplications();
+builder.Services.AddListingsApplications();
+
+builder.Services.AddValidation();
 
 var app = builder.Build();
 

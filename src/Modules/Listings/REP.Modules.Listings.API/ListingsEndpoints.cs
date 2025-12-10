@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
+using REP.Modules.Listings.Application.Contracts;
 using REP.Modules.Listings.Application.Features.CreateListing;
 using REP.Modules.Listings.Application.Features.GetSingleListingById;
 using REP.Modules.Listings.Application.Features.GetUserListings;
@@ -14,24 +15,33 @@ public static class ListingsEndpoints
     {
         var group = endpoints.MapGroup("/api/listings");
 
-        // Get listing by id
-        group.MapGet("/{id:guid}", static async (Guid id, IMediator mediator) =>
+        /// Get listing by ID
+        /// <param name="id">The ID of the listing.</param>
+        /// <returns>The listing with the specified ID, or NotFound if it doesn't exist.</returns>
+        /// <remarks>Returns a 404 Not Found response if the listing is not found.</remarks>
+        group.MapGet("/{id:guid}", static async (Guid id, IListingsService listingsService) =>
         {
-            var result = await mediator.SendAsync(new GetSingleListingByIdQuery(id));
+            GetListingByIdResponse? result = await listingsService.GetListingByIdAsync(id);
             return result is null ? Results.NotFound() : Results.Ok(result);
         });
 
-        // Get all listings of a given author
-        group.MapGet("/author/{authorId:guid}", static async (Guid authorId, IMediator mediator) =>
+        /// Get listings by author ID
+        /// <param name="authorId">The ID of the author.</param>
+        /// <returns>A list of listings by the specified author.</returns>
+        /// <remarks>Returns an empty list if the author has no listings.</remarks>
+        group.MapGet("/author/{authorId:guid}", static async (Guid authorId, IListingsService listingsService) =>
         {
-            var result = await mediator.SendAsync(new GetAuthorListingsQuery(authorId));
+            var result = await listingsService.GetListingsByAuthorIdAsync(authorId);
             return Results.Ok(result);
         });
 
-        // Create new listing
-        group.MapPost("/", static async (HttpRequest req, IMediator mediator, IHttpContextAccessor httpContextAccessor) =>
+        /// Create a new listing
+        /// <param name="req">The HTTP request containing the listing data.</param>
+        /// <returns>The created listing.</returns>
+        /// <remarks>Returns a 201 Created response with the location of the new listing.</remarks>
+        group.MapPost("/", static async (HttpRequest req, IListingsService listingsService, IHttpContextAccessor httpContextAccessor) =>
         {
-            var userId = httpContextAccessor.HttpContext.User.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier").Value;
+            var userId = httpContextAccessor.HttpContext?.User?.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier")?.Value;
 
             if (userId is null)
             {
@@ -39,18 +49,15 @@ public static class ListingsEndpoints
             }
 
             var listingRequest = await req.ReadFromJsonAsync<CreateListingRequest>();
-            var listingCommand = new CreateListingCommand
+
+            if (listingRequest is null)
             {
-                AuthorId = Guid.Parse(userId),
-                Title = listingRequest.Title,
-                Description = listingRequest.Description,
-                Address = listingRequest.Address,
-                Price = listingRequest.Price
-            };
+                return Results.BadRequest("Invalid listing data.");
+            }
 
+            var newListing = await listingsService.CreateListingAsync(listingRequest);
 
-            var result = await mediator.SendAsync(listingCommand);
-            return Results.Created($"/api/listings/{result.ListingId}", result);
+            return Results.Created($"/api/listings/{newListing.ListingId}", newListing);
         });
 
         return endpoints;

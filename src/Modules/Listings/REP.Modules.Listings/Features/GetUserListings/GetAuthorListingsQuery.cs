@@ -3,9 +3,9 @@ using REP.Shared.Mediator.Contracts;
 
 namespace REP.Modules.Listings.Application.Features.GetUserListings;
 
-public record GetAuthorListingsQuery(Guid UserId) : IRequest<IEnumerable<UserListingResponse>?>;
+public record GetAuthorListingsQuery(Guid AuthorId) : IRequest<IEnumerable<AuthorListingResponse>>;
 
-public class GetUserListingsQueryHandler : IRequestHandler<GetAuthorListingsQuery, IEnumerable<UserListingResponse>?>
+public class GetUserListingsQueryHandler : IRequestHandler<GetAuthorListingsQuery, IEnumerable<AuthorListingResponse>>
 {
     private readonly IListingsRepository _listingsRepository;
 
@@ -14,11 +14,11 @@ public class GetUserListingsQueryHandler : IRequestHandler<GetAuthorListingsQuer
         _listingsRepository = listingsRepository;
     }
 
-    public async Task<IEnumerable<UserListingResponse>?> Handle(GetAuthorListingsQuery request, CancellationToken cancellationToken)
+    public async Task<IEnumerable<AuthorListingResponse>> Handle(GetAuthorListingsQuery request, CancellationToken cancellationToken)
     {
-        var listings = await _listingsRepository.GetUserListingsAsync(request.UserId, cancellationToken);
+        var listings = await _listingsRepository.GetUserListingsAsync(request.AuthorId, cancellationToken);
 
-        return listings.Select(listing => new UserListingResponse(
+        return listings.Select(listing => new AuthorListingResponse(
             listing.Id,
             listing.AuthorId,
             listing.Title,

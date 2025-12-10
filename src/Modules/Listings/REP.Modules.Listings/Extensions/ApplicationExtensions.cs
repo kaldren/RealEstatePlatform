@@ -1,9 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Microsoft.Extensions.DependencyInjection;
+using REP.Modules.Listings.Application.Contracts;
+using REP.Modules.Listings.Application.Services;
 
 namespace REP.Modules.Listings.Application.Extensions;
 
-internal class ApplicationExtensions
+public static class ApplicationExtensions
 {
+    public static IServiceCollection AddListingsApplications(this IServiceCollection services)
+    {
+        services.AddTransient<IListingsService, ListingsService>();
+
+        return services;
+    }
 }
