@@ -16,10 +16,11 @@ public static class ListingsEndpoints
     {
         var group = endpoints.MapGroup("/api/listings");
 
-        /// Get listing by ID
+        /// <summary>Get listing by ID</summary>
         /// <param name="id">The ID of the listing.</param>
-        /// <returns>The listing with the specified ID, or NotFound if it doesn't exist.</returns>
-        /// <remarks>Returns a 404 Not Found response if the listing is not found.</remarks>
+        /// <returns><b>200 OK</b> with the listing details or <b>404 Not Found</b> if not found.</returns>
+        /// <response code="200">Listing found</response>
+        /// <response code="404">Listing not found</response>
         group.MapGet("/{id:guid}", static async (Guid id, IListingsService listingsService) =>
         {
             Result<GetListingByIdResponse> result = await listingsService.GetListingByIdAsync(id);
@@ -29,10 +30,11 @@ public static class ListingsEndpoints
                 : Results.NotFound();
         });
 
-        /// Get listings by author ID
+        /// <summary>Get listings by author ID</summary>
         /// <param name="authorId">The ID of the author.</param>
-        /// <returns>A list of listings by the specified author.</returns>
-        /// <remarks>Returns an empty list if the author has no listings.</remarks>
+        /// <returns><b>200 OK</b> with a list of listings by the specified author or <b>404 Not Found</b> if none exist.</returns>
+        /// <response code="200">Listings found</response>
+        /// <response code="404">No listings found</response>
         group.MapGet("/author/{authorId:guid}", static async (Guid authorId, IListingsService listingsService) =>
         {
             Result<IEnumerable<AuthorListingResponse>> result = await listingsService.GetListingsByAuthorIdAsync(authorId);
@@ -42,10 +44,11 @@ public static class ListingsEndpoints
                 : Results.NotFound();
         });
 
-        /// Create a new listing
+        /// <summary>Create a new listing</summary>
         /// <param name="req">The HTTP request containing the listing data.</param>
-        /// <returns>The created listing.</returns>
-        /// <remarks>Returns a 201 Created response with the location of the new listing.</remarks>
+        /// <returns><b>201 Created</b> with the location of the new listing or <b>400 Bad Request</b> if the request is invalid.</returns>
+        /// <response code="201">Listing created</response>
+        /// <response code="400">Bad request</response>
         group.MapPost("/", static async (CreateListingRequest req, IListingsService listingsService, IHttpContextAccessor httpContextAccessor) =>
         {
             Result<CreateListingResponse> result = await listingsService.CreateListingAsync(req);
