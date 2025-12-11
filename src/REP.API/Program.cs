@@ -43,6 +43,7 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddListingsEndpointsServices();
 
 // Modules APIs
 builder.Services.AddAccountsApplications();

@@ -56,6 +56,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Shared\REP.Shared.Kernel\REP.Shared.Kernel.csproj" />
     <ProjectReference Include="..\..\..\Shared\REP.Shared.Mediator\REP.Shared.Mediator.csproj" />
     <ProjectReference Include="..\REP.Modules.Listings.Domain\REP.Modules.Listings.Domain.csproj" />
   </ItemGroup>

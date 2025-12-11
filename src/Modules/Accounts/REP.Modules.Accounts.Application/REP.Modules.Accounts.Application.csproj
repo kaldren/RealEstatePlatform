@@ -1,14 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net10.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net10.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<InterceptorsNamespaces>$(InterceptorsNamespaces);Microsoft.AspNetCore.Http.Validation.Generated</InterceptorsNamespaces>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\Shared\REP.Shared.Mediator\REP.Shared.Mediator.csproj" />
-    <ProjectReference Include="..\REP.Modules.Accounts.Domain\REP.Modules.Accounts.Domain.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\..\..\Shared\REP.Shared.Mediator\REP.Shared.Mediator.csproj" />
+		<ProjectReference Include="..\REP.Modules.Accounts.Domain\REP.Modules.Accounts.Domain.csproj" />
+	</ItemGroup>
 
 </Project>
