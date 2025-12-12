@@ -1,47 +1,61 @@
 ﻿@inject IHttpClientFactory HttpClientFactory
 
 @page "/create-listing"
+@using System.ComponentModel.DataAnnotations
 
 <h3>Create listing</h3>
 
-<form method="post" @onsubmit="SubmitListing" @formname="new-listing">
+<EditForm OnValidSubmit="SubmitListing" FormName="new-listing" Model="@_listing">
+    <DataAnnotationsValidator />
     <div class="mb-3">
         <label for="name" class="form-label">Title</label>
-        <InputText @bind-Value="_listing.Title" class="form-control" id="title" placeholder="Enter listing title" />
+        <InputText @bind-Value="_listing!.Title" class="form-control" id="title" placeholder="Enter listing title" />
+        <ValidationMessage For="@(() => _listing!.Title)" />
 
         <label for="description" class="form-label">Description</label>
-        <InputTextArea @bind-Value="_listing.Description" class="form-control" id="description" placeholder="Enter listing description" />
+        <InputTextArea @bind-Value="_listing!.Description" class="form-control" id="description" placeholder="Enter listing description" />
+        <ValidationMessage For="@(() => _listing!.Description)" />
 
         <label for="address" class="form-label">Address</label>
-        <InputText @bind-Value="_listing.Address" class="form-control" id="address" placeholder="Enter listing address" />
+        <InputText @bind-Value="_listing!.Address" class="form-control" id="address" placeholder="Enter listing address" />
+        <ValidationMessage For="@(() => _listing!.Address)" />
 
         <label for="price" class="form-label">Price</label>
-        <InputNumber @bind-Value="_listing.Price" class="form-control" id="price" placeholder="Enter listing price" />
+        <InputNumber @bind-Value="_listing!.Price" class="form-control" id="price" placeholder="Enter listing price" />
+        <ValidationMessage For="@(() => _listing!.Price)" />
     </div>
     <button type="submit" class="btn btn-primary">Create Listing</button>
-</form>
+</EditForm>
 
 
 
 @code {
     private HttpClient? _httpClient;
-    private NewListingRequest _listing = new NewListingRequest();
+
+    private CreateListingRequest? _listing { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
+        _listing ??= new();
         _httpClient = HttpClientFactory.CreateClient("REP.Api");
     }
-
     private async Task SubmitListing()
     {
-        await _httpClient.PostAsJsonAsync("api/listings", _listing);
+        await _httpClient!.PostAsJsonAsync("api/listings", _listing);
     }
 
-    class NewListingRequest
+    class CreateListingRequest
     {
+        [Required, MinLength(5)]
         public string Title { get; set; } = string.Empty;
+
+        [Required, MinLength(20)]
         public string Description { get; set; } = string.Empty;
+
+        [Required, MinLength(5)]
         public string Address { get; set; } = string.Empty;
+
+        [Required, Range(1, int.MaxValue)]
         public decimal Price { get; set; }
     }
 }

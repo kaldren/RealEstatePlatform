@@ -6,4 +6,4 @@ namespace REP.Modules.Listings.Application.Features.CreateListing;
 // If it were to have behavior or complex logic, we might consider using a class instead.
 // Why not a class: Records provide built-in value-based equality, immutability, and concise syntax for defining data carriers.
 // So, for example, we can't accidentally change the properties of the request after it's created, which helps maintain data integrity.
-public record CreateListingRequest (Guid AuthorId, [Required, MinLength(5)] string Title, string Description, string Address, decimal Price);
+public record CreateListingRequest (Guid AuthorId, [Required, MinLength(5)] string Title, [Required, MinLength(20)] string Description, [Required] string Address, [Required, Range(1, int.MaxValue)] decimal Price);
